@@ -1,0 +1,1 @@
+./tailwindcss -c ./tailwind.config.js -i ./final/marketing/static/css/input.css -o ./final/marketing/static/css/output.css --watch
