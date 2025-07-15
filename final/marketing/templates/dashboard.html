@@ -2,6 +2,41 @@
 {% load static %}
 
 {% block body %}
-hey there here's a dashboard
-  
+<h2 class="mt-5 text-2xl font-bold mb-4">Dashboard</h2>
+
+<form id="searchForm" class="flex flex-wrap items-center gap-3 mb-6">
+  <input
+    type="text"
+    id="symbolInput"
+    placeholder="Enter stock symbol (e.g. AAPL)"
+    class="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 w-60"
+  />
+
+  <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition">
+    Search
+  </button>
+
+  <button type="button" onclick="setTimeframe(10)" class="px-4 py-2 bg-gray-100 text-gray-800 border border-gray-300 rounded-md hover:bg-gray-200 transition">
+    10 Day
+  </button>
+
+  <button type="button" onclick="setTimeframe(30)" class="px-4 py-2 bg-gray-100 text-gray-800 border border-gray-300 rounded-md hover:bg-gray-200 transition">
+    30 Day
+  </button>
+</form>
+
+<div id="chart"></div>
+<div id="volumeChart" class="mt-4"></div>
+
+
+
+<p><h5>Top News From Reddit</h5></p>
+
+<div id="reddit"></div>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+<script src="{% static 'javascript/dashboard.js' %}"></script>
 {% endblock %}

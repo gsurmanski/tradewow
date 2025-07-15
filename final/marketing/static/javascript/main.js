@@ -1,3 +1,4 @@
+//main file for basic functionality across site
 document.addEventListener("DOMContentLoaded", () => {
     const profile = document.querySelector("#profile_icon");
     const dropdown = document.querySelector("#profile_dropdown");

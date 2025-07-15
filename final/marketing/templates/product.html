@@ -2,6 +2,24 @@
 {% load static %}
 
 {% block body %}
-hey there here's the product info
-  
+
+<div class="border p-4 rounded shadow-md mt-5">
+  <div class="bg-white p-8">
+    <div class="mb-6">
+      <h3 class="text-2xl font-semibold text-gray-800 mb-2">Product Information</h3>
+      <p class="text-gray-600 text-base">
+        Welcome to our product overview! This product offers state-of-the-art features designed to deliver top performance, modern usability, and seamless integration.
+      </p>
+    </div>
+
+    <ul class="list-disc list-inside text-gray-700 space-y-2 mb-6">
+      <li>Reliable, high-performance architecture</li>
+      <li>Modern, mobile-first responsive design</li>
+      <li>Real-time data integration (e.g., stock APIs)</li>
+      <li>Extensive customization and modularity</li>
+    </ul>
+    <img src="{% static 'images/heroimage2.png' %}" alt="heroimage">
+  </div>
+</div>
+
 {% endblock %}

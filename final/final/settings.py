@@ -30,6 +30,14 @@ from decouple import config
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = config('SECRET_KEY')
 
+#alpaca
+API_KEY=config('API_KEY')
+SECRET_KEY=config('SECRET_KEY')
+
+#reddit creds
+CLIENT_ID=config('CLIENT_ID')
+CLIENT_SECRET=config('CLIENT_SECRET')
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 

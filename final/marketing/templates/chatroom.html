@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+{% load static %}
+
+{% block body %}
+<div class="container mx-auto max-w-4xl p-4 flex flex-col h-screen">
+  <h2 class="text-2xl font-bold mb-4">Chatroom</h2>
+
+  <div id="messages" class="flex-1 overflow-y-auto border rounded p-4 mb-4 bg-white shadow" style="min-height: 300px;">
+    <!-- Messages will be loaded here -->
+  </div>
+
+  <form id="chatForm" class="flex space-x-2">
+    <input
+      type="text"
+      id="messageInput"
+      placeholder="Type your message..."
+      class="flex-grow border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+      autocomplete="off"
+      required
+    />
+    <button type="submit" class="bg-blue-600 text-white px-4 rounded hover:bg-blue-700 transition">
+      Send
+    </button>
+  </form>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'javascript/chatroom.js' %}"></script>
+{% endblock %}
