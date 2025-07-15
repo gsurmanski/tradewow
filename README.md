@@ -1,7 +1,7 @@
 # Starter Template
 * Graph detailed stock info in Javascript, using live information via Alpaca's API. Favorite stocks or use the chatroom to collaborate with friends!
 
-* Receive live news info from wallstreet bets on Reddit!
+* Receive live news info from r/wallstreetbets on Reddit!
 
 * Contains a full login system, profile pic storage, and storage for messages and favorites. Alpaca's api is queried upon each change.
 
