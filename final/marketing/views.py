@@ -10,12 +10,46 @@ from .forms import *
 from django.http import JsonResponse
 import json
 
+
 #import models
 from .models import User
 
 # Create your views here.
 def index (request):
     return render(request, "index.html")
+
+def dashboard(request):
+    return render(request, "dashboard.html")
+
+def features(request):
+    return render(request, "features.html")
+
+def company(request):
+    return render(request, "company.html")
+
+def product(request):
+    return render(request, "product.html")
+
+@login_required
+def profile(request):
+    user = request.user
+    old_file = user.profile_image
+
+    if request.method == "POST":
+        form = UploadPic(request.POST, request.FILES, instance=request.user)
+        if form.is_valid():
+            #save new image  
+            form.save()
+            
+            # Now delete the old file from disk, if it was different
+            if old_file and old_file != user.profile_image:
+                old_file.delete(save=False)
+
+            return HttpResponseRedirect(reverse("profile"))
+    else:
+        form = UploadPic(instance=request.user)
+
+    return render(request, "profile.html", {'form': form})
 
 def login_view(request):
     if request.method == "POST":
@@ -30,7 +64,7 @@ def login_view(request):
             # Check if authentication successful
             if user is not None:
                 login(request, user)
-                return HttpResponseRedirect(reverse("index"))
+                return HttpResponseRedirect(reverse("dashboard"))
             else:
                 form.add_error(None, 'Invalid username or password')
     else:
@@ -50,28 +84,40 @@ def register(request):
         if form.is_valid():
             username = form.cleaned_data["username"]
             email = form.cleaned_data["email"]
-
-            #if logged in, can't create account
-            if request.user.is_authenticated:
-                form.add_error(None, 'You already have an account')
-
-            # Ensure password matches confirmation
             password = request.POST["password"]
             confirmation = request.POST["confirm_password"]
+
+            # Validation flags
+            has_error = False
+
+            # Check if already logged in
+            if request.user.is_authenticated:
+                form.add_error(None, 'You already have an account')
+                has_error = True
+
+            # Password confirmation check
             if password != confirmation:
-                form.add_error(None, 'Passwords Do Not Match')
+                form.add_error('confirm_password', 'Passwords do not match')
+                has_error = True
 
-            # Attempt to create new user
-            try:
-                user = User.objects.create_user(username, email, password)
-                user.save()
-            except IntegrityError:
-                form.add_error(None, 'Username already Exists')
-
-            login(request, user)
-            return HttpResponseRedirect(reverse("index"))
-        else:
-            form.add_error(None, 'Invalid username, password, or email')
+            #check for existing email
+            email = form.cleaned_data['email']
+            if User.objects.filter(email=email).exists():
+                form.add_error('email', "Email already in use")
+                has_error = True
+    
+            # Try creating user
+            if not has_error:
+                try:
+                    user = User.objects.create_user(username, email, password)
+                    user.save()
+                except IntegrityError:
+                    form.add_error("username", "Username already exists")
+                else:
+                    login(request, user)
+                    return HttpResponseRedirect(reverse("index"))
+        # Let the form fall through with errors if not valid
     else:
         form = RegisterForm()
+
     return render(request, "register.html", {'form': form})

@@ -1,6 +1,7 @@
 # myapp/forms.py
 
 from django import forms
+from .models import User
 
 class LoginForm(forms.Form):
     username = forms.CharField(
@@ -57,3 +58,20 @@ class RegisterForm(forms.Form):
             'placeholder': 'Confirm your password'
         })
     )
+
+class UploadPic(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['profile_image']
+        widgets = {
+            'profile_image': forms.ClearableFileInput(attrs={'class': 'form_input'})
+        }
+    '''
+    #add method for cleaning email. use word 'clean' for auto run
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        if User.objects.filter(email=email).exists():
+            raise forms.ValidationError("Email already in use")
+        #if no error
+        return email
+    '''

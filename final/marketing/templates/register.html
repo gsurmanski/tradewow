@@ -14,13 +14,21 @@
             {% endif %}
             
             <div>
-                {{ form.username.errors }}
+                {% if form.username.errors %}
+                    <div class="error">
+                        {{ form.username.errors }}
+                    </div> 
+                 {% endif %}
                 <label for="{{ form.username.id_for_label }}">Username:</label>
                 {{ form.username }}  <!-- Renders the input with an automatically generated id -->
             </div>
 
             <div>
-                {{ form.email.errors }}
+                {% if form.email.errors %}
+                    <div class="error">
+                        {{ form.email.errors }}
+                    </div> 
+                 {% endif %}
                 <label for="{{ form.username.id_for_label }}">Email:</label>
                 {{ form.email }}  <!-- Renders the input with an automatically generated id -->
             </div>
@@ -32,7 +40,11 @@
             </div>
 
             <div>
-                {{ form.confirm_password.errors }}
+                {% if form.confirm_password.errors %}
+                    <div class="error">
+                        {{ form.confirm_password.errors }}
+                    </div> 
+                 {% endif %}
                 <label for="{{ form.password.id_for_label }}">Confirm Password:</label>
                 {{ form.confirm_password }}  <!-- Renders the input with an automatically generated id -->
             </div>
