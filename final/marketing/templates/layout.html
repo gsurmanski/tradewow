@@ -4,6 +4,7 @@
     <head>
         <title>{% block title %}TradeWow{% endblock %}</title>
         <link href="{% static 'css/output.css' %}" rel="stylesheet">
+        <meta name="csrf-token" content="{{ csrf_token }}">
     </head>
     <body>
         <nav class="relative z-50 bg-gray-800">

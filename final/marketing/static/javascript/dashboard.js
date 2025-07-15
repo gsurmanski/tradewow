@@ -35,16 +35,16 @@ let volumeChart = null;
 let currentSymbol = "GLD";
 let currentTimeframe = 30; // default days
 
-// Create card container with Tailwind styling and return favorite button
+//create card container with Tailwind styling and show favorite button
 function createStockCard(container, symbol) {
-  // Clear previous content first
+  //Clear previous content
   container.innerHTML = "";
 
-  // Create card container
+  //create card container
   const card = document.createElement("div");
   card.className = "border p-4 rounded shadow-md";
 
-  // Title row with symbol and heart button
+  //title row with symbol and heart button
   const titleRow = document.createElement("div");
   titleRow.className = "flex items-center justify-between mb-2";
 
@@ -55,30 +55,30 @@ function createStockCard(container, symbol) {
   const favBtn = document.createElement("button");
   favBtn.className = "favorite noto-emoji text-2xl";
   favBtn.id = `favorite-${symbol}`;
-  favBtn.textContent = "♡"; // default, update later
+  favBtn.textContent = "♡"; //default
 
   titleRow.append(title, favBtn);
 
-  // Price chart container - full width
+  //price chart container - full width
   const priceDiv = document.createElement("div");
   priceDiv.id = `chart-${symbol}`;
   priceDiv.className = "w-full";
 
-  // Volume chart container - full width with margin top
+  //volume chart container
   const volumeDiv = document.createElement("div");
   volumeDiv.id = `volume-${symbol}`;
   volumeDiv.className = "mt-4 w-full";
 
-  // Assemble card content
+  //assemble card content
   card.append(titleRow, priceDiv, volumeDiv);
 
-  // Append to main container
+  //append to main container
   container.appendChild(card);
 
   return { favBtn, priceDivId: priceDiv.id, volumeDivId: volumeDiv.id };
 }
 
-// Fetch data and render charts inside the card container
+//fetch data and render charts inside the card container
 function loadChart(symbol, days) {
   const container = document.querySelector("#chart-container") || document.querySelector("#chart");
   if (!container) {
@@ -86,10 +86,10 @@ function loadChart(symbol, days) {
     return;
   }
 
-  // Create card & get elements
+  //create card & get elements
   const { favBtn, priceDivId, volumeDivId } = createStockCard(container, symbol);
 
-  // Setup favorite button with fetched symbol and button element
+  //setup favorite button with fetched symbol and button element
   setupFavoriteButton(symbol, favBtn);
 
   const now = new Date();
@@ -241,20 +241,20 @@ function loadChart(symbol, days) {
     });
 }
 
-// Called on search form submit
+//called on search form submit
 function fetchStockData() {
   const input = document.getElementById("symbolInput").value.trim().toUpperCase();
   if (input) currentSymbol = input;
   loadChart(currentSymbol, currentTimeframe);
 }
 
-// Called on timeframe buttons click
+//called on timeframe buttons click
 function setTimeframe(days) {
   currentTimeframe = days;
   loadChart(currentSymbol, currentTimeframe);
 }
 
-// Initialize page event listeners and load default chart
+//initialize page event listeners and load default chart
 document.addEventListener("DOMContentLoaded", () => {
   loadChart(currentSymbol, currentTimeframe);
 
@@ -267,16 +267,16 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-// Function to get CSRF token
+//function to get CSRF token
 function getCSRFToken() {
   return document.querySelector('[name=csrf-token]')?.getAttribute('content');
 }
 
-// Setup favorite button with symbol and button element
+//setup favorite button with symbol and button element
 function setupFavoriteButton(symbol, buttonElement) {
   if (!buttonElement) return;
 
-  // Check current favorite status
+  //check current favorite status
   fetch(`/check_favorite_status?symbol=${symbol}`)
     .then(res => res.json())
     .then(data => {

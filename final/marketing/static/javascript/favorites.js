@@ -10,11 +10,11 @@ document.addEventListener("DOMContentLoaded", () => {
       symbols.forEach(symbol => {
         const bars = data.data[symbol];
 
-        // Create card container
+        //create card container
         const card = document.createElement("div");
         card.className = "border p-4 rounded shadow-md";
 
-        // Title row with symbol and heart button
+        //title with symbol and heart button
         const titleRow = document.createElement("div");
         titleRow.className = "flex items-center justify-between mb-2";
 
@@ -25,11 +25,11 @@ document.addEventListener("DOMContentLoaded", () => {
         const favBtn = document.createElement("button");
         favBtn.className = "favorite noto-emoji text-xl";
         favBtn.id = `favorite-${symbol}`;
-        favBtn.textContent = "♡"; // Default, will update after checking
+        favBtn.textContent = "♡"; //default, will update after
 
         titleRow.append(title, favBtn);
 
-        // Chart containers
+        //chart containers
         const priceDiv = document.createElement("div");
         priceDiv.id = `chart-${symbol}`;
 
@@ -37,14 +37,14 @@ document.addEventListener("DOMContentLoaded", () => {
         volumeDiv.id = `volume-${symbol}`;
         volumeDiv.className = "mt-4";
 
-        // Assemble card
+        //assemble card
         card.append(titleRow, priceDiv, volumeDiv);
         container.appendChild(card);
 
-        // Render charts
+        //render charts
         renderCharts(symbol, bars);
 
-        // Setup favorite button
+        //setup favorite button
         setupFavoriteButton(symbol, favBtn);
       });
     })
@@ -93,12 +93,12 @@ function renderCharts(symbol, bars) {
   volumeChart.render();
 }
 
-// Helper to get CSRF token
+//get CSRF token
 function getCSRFToken() {
   return document.querySelector('[name=csrf-token]')?.getAttribute("content");
 }
 
-// Setup heart/favorite button per stock
+//Setup heart/favorite button per stock
 function setupFavoriteButton(symbol, buttonEl) {
   fetch(`/check_favorite_status?symbol=${symbol}`)
     .then(res => res.json())

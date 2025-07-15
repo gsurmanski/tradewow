@@ -161,7 +161,7 @@ def favorites(request):
 @login_required
 def favorites_data(request):
     try:
-        end = datetime.now() - timedelta(days=1)  # Avoid recent SIP data
+        end = datetime.now() - timedelta(days=1)  # Avoid recent SIP data. Makes Alpaca reject request
         start = end - timedelta(days=40)
 
         # Normalize timezone
@@ -326,14 +326,16 @@ def send_message(request):
 
 @login_required
 def get_messages(request):
-    # Return last 50 messages in chronological order
+    # Return last 50 messages in order of timestamp
     messages = ChatMessage.objects.select_related("user").order_by("-timestamp")[:50]
     messages = reversed(messages)  # oldest first
-
-    data = [{
-        "user": msg.user.username,
-        "message": msg.message,
-        "timestamp": msg.timestamp.strftime("%Y-%m-%d %H:%M:%S")
-    } for msg in messages]
+    #put each message in a dict for sending to front end
+    data = []
+    for msg in messages:
+        data.append({
+            "user": msg.user.username,
+            "message": msg.message,
+            "timestamp": msg.timestamp.strftime("%Y-%m-%d %H:%M:%S")
+        })
 
     return JsonResponse({"messages": list(data)})
