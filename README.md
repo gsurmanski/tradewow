@@ -1,4 +1,4 @@
-# Starter Template
+# Tradewow
 * Graph detailed stock info in Javascript, using live information via Alpaca's API. Favorite stocks or use the chatroom to collaborate with friends!
 
 * Receive live news info from r/wallstreetbets on Reddit!
