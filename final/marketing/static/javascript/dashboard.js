@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  //get reddit news
+  //**************get reddit news**************
   fetch('/api_reddit')
     .then(response => response.json())
     .then(data => {
@@ -29,7 +29,8 @@ document.addEventListener("DOMContentLoaded", () => {
       document.querySelector("#reddit").appendChild(errorMessage);
     });
 });
-//candle graph
+
+//**************candle graphs**************
 let priceChart = null;
 let volumeChart = null;
 let currentSymbol = "GLD";
@@ -272,7 +273,7 @@ function getCSRFToken() {
   return document.querySelector('[name=csrf-token]')?.getAttribute('content');
 }
 
-//setup favorite button with symbol and button element
+//**************setup favorite button with symbol and button element **************
 function setupFavoriteButton(symbol, buttonElement) {
   if (!buttonElement) return;
 

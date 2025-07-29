@@ -299,7 +299,7 @@ def register(request):
                     form.add_error("username", "Username already exists")
                 else:
                     login(request, user)
-                    return HttpResponseRedirect(reverse("index"))
+                    return HttpResponseRedirect(reverse("dashboard"))
         # Let the form fall through with errors if not valid
     else:
         form = RegisterForm()

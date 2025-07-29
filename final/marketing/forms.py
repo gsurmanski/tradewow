@@ -66,12 +66,3 @@ class UploadPic(forms.ModelForm):
         widgets = {
             'profile_image': forms.ClearableFileInput(attrs={'class': 'form_input'})
         }
-    '''
-    #add method for cleaning email. use word 'clean' for auto run
-    def clean_email(self):
-        email = self.cleaned_data['email']
-        if User.objects.filter(email=email).exists():
-            raise forms.ValidationError("Email already in use")
-        #if no error
-        return email
-    '''
